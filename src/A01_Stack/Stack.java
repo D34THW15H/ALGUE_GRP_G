@@ -1,8 +1,13 @@
 package A01_Stack;
 
 
+import sun.invoke.empty.Empty;
+
+import java.util.EmptyStackException;
+
 public class Stack<T>
 {
+    private int counter=0;
 	 private Node<T> first;
     /**
      * Oberstes Element entfernen und zurückliefern.
@@ -10,8 +15,29 @@ public class Stack<T>
      * @throws StackEmptyException 
      */
     public T pop() throws StackEmptyException {
+        // Store first to return it afterwards
+        Node<T> todelete = first;
+        // CHeck if stack is empty
+        if(first == null)
+        {
+            throw new StackEmptyException("Error: First Entry not found!");
+        }
+        // überprüfe ob es ein NEXT gibt
+        if(counter > 1)
+        {
+            // Next becomes First therefore first is deleted
+            first = first.getNext();
 
-    	return null;
+        }
+        // if no next then first = null => Stack is empty
+        else
+        {
+            first = null;
+        }
+        // set counter -1
+        counter--;
+        // as mentioned upper element needs to be returned
+        return todelete.getData();
     }
     
     /**
@@ -19,7 +45,13 @@ public class Stack<T>
      * @param i data
      */
     public void push(T i) {
-
+        //New Node Element
+        Node<T> data = new Node<>(i);
+        //Set next Element
+        data.setNext(first);
+        //Save first as next Element
+        first = data;
+        counter++;
     }
     
     /**
@@ -27,6 +59,6 @@ public class Stack<T>
      * @return
      */
     public int getCount() {
-    	return 0;
+        return counter;
     }
 }
