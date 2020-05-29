@@ -31,15 +31,18 @@ public abstract class BaseTree<Type> {
 		Node<Type> neu = new Node<Type>(elem);
 		if (root == null) {			// Fall 1: Baum ist leer
 			root = neu;
+			root.nodeLevel = 1;
 			return;
 		}
-		Node<Type> node = root;				// Fall 2: Baum ist nicht leer
+		Node<Type> node = root;// Fall 2: Baum ist nicht leer
+
 		while (true) {
 			int vgl = compare(elem, node.getValue());
 			if (vgl < 0) {					// kleiner
 				if (node.getLeft() == null) {
 					node.setLeft(neu);
 					neu.setParent(node);
+					neu.nodeLevel = node.getNodeLevel() +1;
 					return;
 				}
 				node = node.getLeft();
@@ -48,6 +51,7 @@ public abstract class BaseTree<Type> {
 				if (node.getRight() == null) {
 					node.setRight(neu);
 					neu.setParent(node);
+					neu.nodeLevel = node.getNodeLevel() +1;
 					return;
 				}
 				node = node.getRight();

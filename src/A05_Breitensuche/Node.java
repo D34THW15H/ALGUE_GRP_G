@@ -21,7 +21,7 @@ public class Node<Type> {
 	 * Wert des Knotens, hier: String, der Wort enthält
 	 */
 	protected final Type value;
-
+	protected int nodeLevel;
 
 	/**
 	 * Konstruktor
@@ -58,5 +58,7 @@ public class Node<Type> {
 	public Type getValue() {
 		return value;
 	}
+
+	public int getNodeLevel(){return nodeLevel;}
 	
 }
