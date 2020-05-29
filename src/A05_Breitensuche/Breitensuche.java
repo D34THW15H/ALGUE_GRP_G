@@ -1,6 +1,9 @@
 package A05_Breitensuche;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class Breitensuche extends BaseTree<Integer> {
 
@@ -16,7 +19,36 @@ public class Breitensuche extends BaseTree<Integer> {
 	 */
 	public List<Integer> getBreadthFirstOrder(Node<Integer> start) {
 
-		return null;
+		Queue<Node<Integer>> queue = new LinkedList<>();
+		List<Integer> result = new ArrayList<>();
+
+		queue.add(start);
+
+		Node<Integer> currentNode;
+		Node<Integer> leftNode;
+		Node<Integer> rightNode;
+
+		while(true)
+		{
+			currentNode = queue.poll();
+			if (currentNode == null)
+				break;
+
+			leftNode = currentNode.getLeft();
+			if (leftNode != null)
+			{
+				queue.add(leftNode);
+			}
+			rightNode = currentNode.getRight();
+			if (rightNode != null)
+			{
+				queue.add(rightNode);
+			}
+			result.add(currentNode.getValue());
+		}
+
+
+		return result;
 	}
 
 	/**
@@ -27,8 +59,49 @@ public class Breitensuche extends BaseTree<Integer> {
 	 * @return Liste aller Knoten
 	 */
 	public List<Integer> getBreadthFirstOrderForLevel(Node<Integer> start, int level) {
+		Queue<Node<Integer>> queue = new LinkedList<>();
+		List<Integer> result = new ArrayList<>();
+		int currentLevel = start.getNodeLevel();
 
-		return null;
+		Node<Integer> currentNode = start;
+		Node<Integer> leftNode;
+		Node<Integer> rightNode;
+
+		// Check ob level und start das selbe wenn ja mit parent anfangen
+		if (currentLevel == level && start.getParent() != null)
+		{
+			level = level+1;
+
+		}
+
+
+		queue.add(currentNode);
+
+		while(true) {
+			currentNode = queue.poll();
+			if (currentNode == null)
+				break;
+
+			if ((leftNode = currentNode.getLeft()) != null ) {
+				if (leftNode.getNodeLevel() <= level) {
+					queue.add(leftNode);
+				}
+			}
+			if ((rightNode = currentNode.getRight()) != null ) {
+				if (rightNode.getNodeLevel() <= level)
+				{
+					queue.add(rightNode);
+				}
+			}
+			if (currentNode.getNodeLevel() == level)
+			{
+				result.add(currentNode.getValue());
+			}
+
+		}
+
+
+		return result;
 	}
 
 }

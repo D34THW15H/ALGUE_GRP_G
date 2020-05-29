@@ -1,13 +1,12 @@
 package A01_Stack;
 
 
-import sun.invoke.empty.Empty;
 
 import java.util.EmptyStackException;
 
 public class Stack<T>
 {
-    private int counter=0;
+     private int counter=0;
 	 private Node<T> first;
     /**
      * Oberstes Element entfernen und zurückliefern.
