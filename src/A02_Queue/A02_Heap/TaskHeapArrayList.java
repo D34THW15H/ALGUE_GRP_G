@@ -1,6 +1,8 @@
-package A02_Queue.A02_Heap;
+package A02_Heap;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class TaskHeapArrayList {
 
@@ -14,7 +16,7 @@ public class TaskHeapArrayList {
 	 * Konstruktor
 	 */
 	public TaskHeapArrayList() {
-
+		tasks = new ArrayList<>();
 	}
 
 	/**
@@ -22,7 +24,14 @@ public class TaskHeapArrayList {
 	 * @param t Einzufügender Task
 	 */
 	public void insert(Task t) {
+		tasks.add(t);
 
+		Collections.sort(tasks, new Comparator<Task>() {
+			@Override
+			public int compare(Task o1, Task o2) {
+				return Integer.compare(o1.getPriority(), o2.getPriority());
+			}
+		});
 	}
 
 	/**
@@ -30,7 +39,10 @@ public class TaskHeapArrayList {
 	 * @return Task mit kleinster Priorität
 	 */
 	public Task remove() {
-		return null;
-	}
+			if (tasks.isEmpty()){
+				return null;
+			}
 
+		return tasks.remove(0);
+	}
 }
