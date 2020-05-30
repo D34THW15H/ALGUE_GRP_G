@@ -26,18 +26,12 @@ public class TaskHeapArrayList {
 	public void insert(Task t) {
 		tasks.add(t);
 
-		if (tasks.isEmpty()){
-			return;
-		}
-
-		else {
-			Collections.sort(tasks, new Comparator<Task>() {
+		Collections.sort(tasks, new Comparator<Task>() {
 				@Override
 				public int compare(Task o1, Task o2) {
-					return Integer.compare(o1.getPriority(), o2.getPriority());
+					return Integer.compare(o1.getPriority(),o2.getPriority());
 				}
-			});
-		}
+		});
 	}
 
 	/**
@@ -48,7 +42,6 @@ public class TaskHeapArrayList {
 			if (tasks.isEmpty()){
 				return null;
 			}
-
-		return tasks.remove(0);
+			return tasks.remove(0);
 	}
 }
