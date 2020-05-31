@@ -85,8 +85,7 @@ public class TaskHeapArrayList {
 				Task temp = tasks.get(k);
 				tasks.set(k, tasks.get(max));
 				tasks.set(max, temp);
-				k=max;
-				left = 2*k;
+				left = 2*k+1;
 			}else{
 				break;
 			}
