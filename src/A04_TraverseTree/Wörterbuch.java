@@ -1,9 +1,11 @@
 package A04_TraverseTree;
-
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
 
 
-public class Wörterbuch {
+public class WÃ¶rterbuch {
 
 	/**
 	 * Wurzel des Baums (Startknoten)
@@ -15,29 +17,57 @@ public class Wörterbuch {
 	}
 
 	/**
-	 * Zählt alle Wörter des Teilbaums ab einem bestimmten Wort
+	 * ZÃ¤hlt alle WÃ¶rter des Teilbaums ab einem bestimmten Wort
 	 * @param w Wort
-	 * @return Zahl der Wörter (=Anzahl der Elemente)
+	 * @return Zahl der WÃ¶rter (=Anzahl der Elemente)
 	 */
 	public int countWordsInSubTree(Wort w) {
-		
-		return 0;
+		Queue<Wort> queue = new LinkedList<>();//Erstellt eine Queue wo alles gespeichert wird
+		int counter = 0;
+		queue.add(w);//Nimmt das Ã¼bergebene element und fÃ¼gt es der queue hinzu.
+		Wort node;
+		while ((node = queue.poll())!= null){
+			if (node.getLeft() != null){
+				queue.add(node.getLeft()); //wenn unser Knoten ein linkes Kind hat, dann wird es zur queue hinzugefÃ¼gt
+			}
+			if(node.getRight() !=null){
+				queue.add(node.getRight()); //wenn unser Knoten ein rechtes Kind hat, dann wird es zur queue hinzugefÃ¼gt
+			}
+			counter++; // erhÃ¶ht den counter jeweils um eins.
+		}
+
+
+		return counter;
 	}
 
 	/**
-	 * Liefert die Menge aller Wörter retour, die ein spezifisches Präfix haben.
-	 * @param prefix Wörter müssen diesen Präfix haben
-	 * @return Menge aller zutreffenden Wörter
+	 * Liefert die Menge aller WÃ¶rter retour, die ein spezifisches PrÃ¤fix haben.
+	 * @param prefix WÃ¶rter mÃ¼ssen diesen PrÃ¤fix haben
+	 * @return Menge aller zutreffenden WÃ¶rter
 	 */
 	public Set<String> getWordsWithPrefix(String prefix) {
-		
-		return null;
+		Set<String> returnset = new HashSet<>(); //erstellt ein Set das zurÃ¼ck gegeben wird.
+		Queue<Wort> queue = new LinkedList<>(); //Erstellt eine Queue wo alles gespeichert wird
+		queue.add(getRoot()); //Nimmt das root element und fÃ¼gt es der queue hinzu.
+		Wort node;
+		while ((node = queue.poll())!= null){
+			if (node.getLeft() != null){ //wenn unser Knoten ein linkes Kind hat, dann wird es zur queue hinzugefÃ¼gt
+				queue.add(node.getLeft());
+			}
+			if(node.getRight() !=null){ //wenn unser Knoten ein rechtes Kind hat, dann wird es zur queue hinzugefÃ¼gt
+				queue.add(node.getRight());
+			}
+			if(node.getWort().startsWith(prefix)){ //wenn unser Knoten mit den prefix beginnt, dann wird der Knoten an das Set angehÃ¤ngt
+				returnset.add(node.getWort());
+			}
+		}
+		return returnset;
 	}
 	
 
 	/**
-	 * Neues Wort hinzufügen
-	 * @param wort Hinzuzufügendes Wort
+	 * Neues Wort hinzufÃ¼gen
+	 * @param wort HinzuzufÃ¼gendes Wort
 	 */
 	public void add(String wort) {
 		Wort neu = new Wort(wort);
@@ -56,7 +86,7 @@ public class Wörterbuch {
 				}
 				w = w.getLeft();
 			}
-			else if (vgl > 0) {		// Neues Wort ist lexikographisch größer
+			else if (vgl > 0) {		// Neues Wort ist lexikographisch grÃ¶ÃŸer
 				if (w.getRight() == null) {
 					w.setRight(neu);
 					neu.setParent(w);
