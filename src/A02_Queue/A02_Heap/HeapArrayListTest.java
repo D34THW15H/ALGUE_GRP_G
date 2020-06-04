@@ -8,13 +8,13 @@ public class HeapArrayListTest {
 
 	@Test
 	public void emptyHeap() {
-		TaskHeapArrayList th = new TaskHeapArrayList();
+		A02_Heap.TaskHeapArrayList th = new A02_Heap.TaskHeapArrayList();
 		assertNull(th.remove());
 	}
 
 	@Test
 	public void removeTest() {
-		TaskHeapArrayList th = new TaskHeapArrayList();
+		A02_Heap.TaskHeapArrayList th = new A02_Heap.TaskHeapArrayList();
 		th.insert(new Task(1, 12));
 		th.insert(new Task(2, 2));
 		th.insert(new Task(3, 14));
@@ -32,7 +32,7 @@ public class HeapArrayListTest {
 	
 	@Test
 	public void removeTest2() {
-		TaskHeapArrayList th = new TaskHeapArrayList();
+		A02_Heap.TaskHeapArrayList th = new A02_Heap.TaskHeapArrayList();
 		th.insert(new Task(1, 7));
 		th.insert(new Task(2, 2));
 		th.insert(new Task(3, 14));

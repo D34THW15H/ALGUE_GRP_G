@@ -5,7 +5,7 @@ import java.util.Queue;
 import java.util.Set;
 
 
-public class Wörterbuch {
+public class Woerterbuch {
 
 	/**
 	 * Wurzel des Baums (Startknoten)

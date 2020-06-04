@@ -6,13 +6,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class WörterbuchCountWordsTest {
+public class WoerterbuchCountWordsTest {
 
-	private Wörterbuch wb;
+	private Woerterbuch wb;
 	
 	@Before
 	public void setUp() throws Exception {
-		wb = new Wörterbuch();
+		wb = new Woerterbuch();
 		wb.add("Homer");
 		wb.add("Flanders");
 		wb.add("Maggie");
