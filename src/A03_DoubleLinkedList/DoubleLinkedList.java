@@ -20,6 +20,7 @@ public class DoubleLinkedList<T>
         //wenn die erste Node leer ist wird Sie mit der neu generierten Node befüllt
         if (getFirst() == null) {
             first = newNode;
+            //current = first;
         } else {
             //beim neuen Node wird das lezte Node als das vorherige Node gesetzt
             newNode.setPrevious(last);
@@ -28,6 +29,7 @@ public class DoubleLinkedList<T>
         }
         //das new Node wird als neues Last gesetzt
         last = newNode;
+        //current = last;
 
     }
 
@@ -161,16 +163,15 @@ public class DoubleLinkedList<T>
      */
     public T get(int pos) {
 
-
         //zeiger wird initialisiert für eine mögliche Rückgabe
         T zeiger;
         //mit reset wird current auf das erste Node zurückgesetzt
         reset();
 
         //Schleife läuft so lange bis man and die angeforderte Position kommt
-        for (int i = 0; i < pos;i++){
+        for (int i = 0; i < pos; i++) {
             //solange es ein nächstes Node gibt wird move next durchgeführt
-            if(current.getNext() != null) {
+            if (current.getNext() != null) {
                 moveNext();
             } else {
                 //wenn das nächste Element nicht vorhanden ist wird null zurückgeliefert
@@ -191,17 +192,44 @@ public class DoubleLinkedList<T>
      */
     public void remove(int pos) throws CurrentNotSetException
     {
-        //current wird mit reset auf das erste Node zurückgesetzt
-        reset();
-        //Schleife läuft solange bis man an der übergebenen Pos angekommen ist
-        for (int i = 0; i < pos; i++)
-        {
-            moveNext();
+        Node<T> del = first;
+        //wenn die liste leer oder die übergebene position kleiner gleich 0 ist wird die methode beendet
+        if(del == null || pos <= 0){
+            return;
         }
-        //removeCurrent wird aufgerufen um das aktuelle Node zu entfernen
-        removeCurrent();
-        //current wird mit moveNext auf das nächste Element gesetzt
-        moveNext();
+        //liste durchgehen bis man an der richtigen position ist
+        for(int i = 1;i < pos; i++){
+            del = del.getNext();
+        }
+
+        //wenn das zu löschende das aktuelle node ist, current pointer auf null setzen
+        if(del == current){
+            current = null;
+        }
+
+        //wenn das zu löschende das erste node ist
+        if(first == del){
+            //vom nächsten node den vorigen pointer auf den vorigen pointer des zu löschenden setzen
+            if(del.getNext() != null) {
+                del.getNext().setPrevious(del.getPrevious());
+                //pointer first auf das nächste node vom zu löschenden setzen
+                first = del.getNext();
+                return;
+            }
+            first = null;
+            return;
+        }
+        //wenn das zu löschnede das letzte node ist
+        if(last == del){
+            //vom vorigen node den next pointer auf den next pointer des zu löschenden setzen
+            del.getPrevious().setNext(del.getNext());
+            last = del.getPrevious();
+            return;
+        }
+        //beim vorigen Node das nächste auf das nächste vom zu löschenden setzen
+        del.getNext().setPrevious(del.getPrevious());
+        //beim nächsten Node das vorige auf das vorige vom zu löschenden setzen
+        del.getPrevious().setNext(del.getNext());
     }
     
     /**
@@ -211,39 +239,40 @@ public class DoubleLinkedList<T>
      * @throws CurrentNotSetException
      */
     public void removeCurrent() throws CurrentNotSetException {
-        //wenn das aktuelle Node null ist wird eine CurrentNotSetException geworfen
+                //wenn das aktuelle Node null ist wird eine CurrentNotSetException geworfen
         if (current == null)
             throw new CurrentNotSetException();
 
-        //wenn das vorherige Node nicht null ist
-        // wird beim vorherigen Node das nächste Node vom aktuellen auf dies gesetzt
-        if (current.getPrevious() != null) {
-            current.getPrevious().setNext(current.getNext());
-            //wenn das nächste Node nicht leer ist
-            //wird beim nächsten Node der Wert des vorherigen des aktuellen Node gesetzt
-            if (current.getNext() != null) {
-                current.getNext().setPrevious(current.getPrevious());
-                //current wird auf das nächste Node gesetzt
-                current = current.getNext();
-            } else {
-                //wenn current das letzte Node war wird last auf das vorherige Node vom aktuellen gesetzt
-                last = current.getPrevious();
-                //current wird auf das vorige Node gesetzt
-                current = current.getPrevious();
-            }
-        } else {
-            //das first Node wird auf das nächste Node des aktuellen gesetzt
-            first = current.getNext();
-            //wenn first ungleich null wird das vorige Node von first auf null gesetzt
-            if (first != null) {
-                first.setPrevious(null);
-            }
-            //wenn current ungleich null wird current auf das nächste Element gesetzt
-            if (current != null) {
-                current = current.getNext();
-            }
-        }
+        Node<T> del = current;
 
+        //wenn das zu löschende das erste node ist
+        if(first == del){
+            //vom nächsten node den vorigen pointer auf den vorigen pointer des zu löschenden setzen
+            if(del.getNext() != null) {
+                del.getNext().setPrevious(del.getPrevious());
+                //pointer first auf das nächste node vom zu löschenden setzen
+                first = del.getNext();
+                current = first;
+                return;
+            }
+            first = null;
+            current = null;
+            return;
+        }
+        //wenn das zu löschnede das letzte node ist
+        if(last == del){
+            //vom vorigen node den next pointer auf den next pointer des zu löschenden setzen
+            del.getPrevious().setNext(del.getNext());
+            last = del.getPrevious();
+            current = last;
+            return;
+        }
+        //beim vorigen Node das nächste auf das nächste vom zu löschenden setzen
+        del.getNext().setPrevious(del.getPrevious());
+        //beim nächsten Node das vorige auf das vorige vom zu löschenden setzen
+        del.getPrevious().setNext(del.getNext());
+
+        current = del.getNext();
     }
     
     /**

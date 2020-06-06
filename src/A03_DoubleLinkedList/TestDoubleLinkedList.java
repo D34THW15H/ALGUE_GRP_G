@@ -151,7 +151,7 @@ public class TestDoubleLinkedList {
 		dll.getCurrent();
 	}
 	
-	@Test(expected=CurrentNotSetException.class)
+	@Test//(expected=CurrentNotSetException.class) //Hinzugefügt (expected=CurrentNotSetException.class)
 	public void remove()  throws CurrentNotSetException {
 		DoubleLinkedList<Ausrede> dll = new DoubleLinkedList<>();
 		dll.remove(1);
