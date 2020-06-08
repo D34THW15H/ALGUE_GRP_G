@@ -9,19 +9,20 @@ public class Main {
 		g.addEdge(0, 4,  3);
 		g.addEdge(0, 5,  4);
 		g.addEdge(1, 3,  1);
-		g.addEdge(1, 4,  6);
+		g.addEdge(1, 4,  6, true);
 		g.addEdge(1, 6,  2);
 		g.addEdge(2, 3,  3);
-		g.addEdge(2, 4,  4);
+		g.addEdge(2, 4,  4, true);
 		g.addEdge(2, 7,  4);
 		g.addEdge(3, 6,  2);
-		g.addEdge(3, 7,  1);
+		g.addEdge(3, 7,  1, true);
 		g.addEdge(5, 6,  3);
-
 		DijkstraDGShortestPath dfs = new DijkstraDGShortestPath(g);
-		List<Integer> way = dfs.findWay(0, 7);
+		List<Integer> way = dfs.findWay(0, 7, true);
 		printWay(way);
-
+		System.out.println("");
+		way = dfs.findWay(0, 7, false);
+		printWay(way);
 	}
 	
 	public static void printWay(List<Integer> way) {

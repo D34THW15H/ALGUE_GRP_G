@@ -40,9 +40,15 @@ public class ListGraph implements Graph {
 	}
 	
 	public void addEdge(int u, int v, int weight) {
-		graph[u].add(new WeightedEdge(u, v, weight));
+		addEdge(u, v, weight, false);
 		if (!directed) {
-			graph[v].add(new WeightedEdge(v, u, weight));
+			addEdge(v, u, weight, false);
+		}
+	}
+	public void addEdge(int u, int v, int weight, boolean charge) {
+		graph[u].add(new WeightedEdge(u, v, weight, charge));
+		if (!directed) {
+			graph[v].add(new WeightedEdge(v, u, weight, charge));
 		}
 	}
 	
