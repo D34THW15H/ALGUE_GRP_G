@@ -48,12 +48,28 @@ public class ListGraph implements Graph {
 	}
 	
 	public void addEdge(int u, int v, int weight) {
-		WeightedEdge pv = new WeightedEdge(v, weight);
-		graph[u].add(pv);
-		if (!directed) {
-			pv = new WeightedEdge(u, weight);
-			graph[v].add(pv);
+		addEdge(u,v,weight,false);
+	}
+	public void addEdge(int u, int v, int weight, boolean border) {
+		if (border)
+		{
+			WeightedEdge pv = new WeightedEdge(u, v, weight+1);
+			graph[u].add(pv);
+			if (!directed) {
+				pv = new WeightedEdge(v, u, weight+1);
+				graph[v].add(pv);
+			}
 		}
+		else
+		{
+			WeightedEdge pv = new WeightedEdge(u, v,weight);
+			graph[u].add(pv);
+			if (!directed) {
+				pv = new WeightedEdge(v, u,weight);
+				graph[v].add(pv);
+			}
+		}
+
 	}
 	
 	private WeightedEdge findEdge(int u, int v) {
@@ -77,7 +93,7 @@ public class ListGraph implements Graph {
 		return graph[v];
 	}
 
-	
+	@Override
 	public void setLand(String landName, int v) {
 		land[v] = landName;
 	}
