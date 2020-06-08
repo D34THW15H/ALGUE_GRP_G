@@ -56,7 +56,7 @@ public class ListGraph implements Graph {
 	}
 
 	public void removeEdge(int u, int v) {
-		// TODO
+		removeEdge(u,v);
 	}
 
 	public List<WeightedEdge> getEdges(int v) {

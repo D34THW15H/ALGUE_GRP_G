@@ -44,10 +44,18 @@ public abstract class FindWay {
 	 * @return Weg als Liste
 	 */
 	protected ArrayList<Integer> createWay(int from, int to) {
+
 		ArrayList<Integer> way = new ArrayList<Integer>();
-
-		// TODO: IHRE IMPLEMENTIERUNG
-
+		int temp = to;
+		//Solange temp nicht From.
+		while (temp != from)
+		{
+			//Füge neue Kante immer als erstes in der Liste hinzu.
+			way.add(0,temp);
+			temp = pred[temp];
+		}
+		//Füge From Kante als erstes in der Liste hinzu damit der Weg vollständig ist.
+		way.add(0,from);
 		return way;
 	}
 }
