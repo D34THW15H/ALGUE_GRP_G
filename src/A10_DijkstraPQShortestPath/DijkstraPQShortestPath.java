@@ -52,14 +52,14 @@ public class DijkstraPQShortestPath extends FindWay {
 		{
 			//Erstes Element in Heap = current
 			Vertex current = heap.remove();
-			//Liste mit allen Kanten
+			//Liste mit allen Kanten vom Konten "current"
 			List<WeightedEdge> alleKanten = graph.getEdges(current.vertex);
 			//Für jede Kante
 			for (WeightedEdge kante: alleKanten)
 			{
 				//Aktuelle Kante + Kantengewicht = Ergebnis
 				int ergebnis = dist[current.vertex] + kante.weight;
-				//Kosten zur Eckkante
+				//Eckkante
 				int zielKante = kante.to_vertex;
 				// Wenn Ergebnis kleiner als vorhandener Wert, überschreibe Kosten mit Ergebnis.
 				if (ergebnis < dist[zielKante])
