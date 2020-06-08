@@ -64,18 +64,43 @@ public class Tiefensuche extends BaseTree<Film> {
 	public List<String> getMinMaxPreOrder(double min, double max) {
 		//Root Element von Tiefensuche
 		Node<Film> node = getRoot();
-		//Arraylist mit allen Filmen
-		ArrayList<Film> movies = getMoviesList(node);
 		//Arraylist mit allen Titeln
 		ArrayList<String> titels = new ArrayList<>();
-		//Für jeden Film
-		for (Film film:movies) {
-			//Länge des Filmes
-			double lengh = film.getLänge();
-			//Wenn Länge des Filmes ist größer/gleich min & kleiner/gleich max dann zur Titelliste hinzufügen
-			if (lengh >= min && lengh <=max)
+		//Neuer Stack
+		Stack<Node<Film>> stack = new Stack<>();
+		//Aktueler Node = Startknoten
+		Node<Film> currentNode = node;
+		//Zum Stack hinzufügen
+		stack.push(currentNode);
+		//Solange Stack nicht leer
+		while (!stack.isEmpty())
+		{
+			//LIFO - Neuer Current Node
+			currentNode = stack.pop();
+			//Current Node zur Arraylist hinzufügen wenn größer/gleich min & kleiner/gleich max
+			double length = currentNode.getValue().getLänge();
+			if (length >= min && length <=max)
 			{
-				titels.add(film.getTitel());
+				titels.add(currentNode.getValue().getTitel());
+			}
+			// Wenn links und rechts leer - continue
+			if (currentNode.getLeft() == null && currentNode.getRight() == null)
+			{
+				continue;
+			}
+			//Sonst
+			else
+			{
+				//Wenn rechts nicht leer - hinzufügen zu Stack
+				if (currentNode.getRight() != null)
+				{
+					stack.push(currentNode.getRight());
+				}
+				//Wenn links nicht leer - hinzufügen zu Stack
+				if (currentNode.getLeft() != null)
+				{
+					stack.push(currentNode.getLeft());
+				}
 			}
 		}
 		//Return der Titelliste
@@ -93,7 +118,7 @@ public class Tiefensuche extends BaseTree<Film> {
 		//Solange Stack nicht leer
 		while (!stack.isEmpty())
 		{
-			//FIFO - Neuer Current Node
+			//LIFO - Neuer Current Node
 			currentNode = stack.pop();
 			//Current Node zur Arraylist hinzufügen
 			movies.add(currentNode.getValue());
