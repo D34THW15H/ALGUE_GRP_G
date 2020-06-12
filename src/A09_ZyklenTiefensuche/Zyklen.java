@@ -21,19 +21,19 @@ public class Zyklen {
 	 */
 
 	public List<Integer> getCycle() {
-		//Neue ArrayList zum speichern aller Werte i
-		ArrayList<Integer> startKnoten = new ArrayList<Integer>();
-		//For Schleife die so lange läuft solange i kleiner als die Größe des Graphen g ist, diese bricht ab falls ein Kreis gefunden wurde
+		//For Schleife die so lange laeuft solange i kleiner als die Groeße des Graphen g ist, diese bricht ab falls ein Kreis gefunden wurde
 		for (int i = 0; i < g.numVertices(); i++)
 		{
-			//Füge i in den Graph hinzu
+			//Neue ArrayList zum speichern aller Werte i
+			ArrayList<Integer> startKnoten = new ArrayList<Integer>();
+			//Fuege i in die Liste Startknoten hinzu
 			startKnoten.add(i);
-			//ArrayList um zu überprüfen ob im Graphen eine Kreisstrecke existiert
+			//ArrayList um zu ueberpruefen ob im Graphen eine Kreisstrecke existiert
 			ArrayList<Integer> kreis = sucheEinenKreis(startKnoten);
 			//Wenn Kreis nicht mehr null retourniert
 			if (kreis != null)
 			{
-				//Gebe die Kreisstrecke aus
+				//Gib die Kreisstrecke aus
 				System.out.println(kreis);
 				//und retourniere die ArrayList kreis
 				return kreis;
@@ -45,26 +45,26 @@ public class Zyklen {
 
 	private ArrayList<Integer> sucheEinenKreis(ArrayList<Integer> besuchteKnoten)
 	{
-		//Wähle aktuellen Knoten aus = letzter Knoten der bisherig erstellten Liste
+		//Waehle aktuellen Knoten aus = letzter Knoten der bisherig erstellten Liste
 		int aktuellerKnoten = aktuellerKnotenBisherigerPfad(besuchteKnoten);
-		//Übernimm den bisherigen Pfad des Graphen
+		//Uebernimm den bisherigen Pfad des Graphen
 		ArrayList<Integer> bisherigerPfad = pfadBisZumAktuellenKnoten(besuchteKnoten);
 		//Wenn der bisherige Pfad den aktuellen Knoten beinhaltet
 		if (bisherigerPfad.contains(aktuellerKnoten))
 		{
 			//Erstelle eine neue ArrayList Kreis
 			ArrayList<Integer> Kreis = new ArrayList<>();
-			//Gehe auf jeden Knoten solange i kleiner ist als die übergebene Liste
+			//Gehe auf jeden Knoten solange i kleiner ist als die uebergebene Liste
 			for (int i = besuchteKnoten.indexOf(aktuellerKnoten); i < besuchteKnoten.size(); i++)
 			{
-				//Füge die besuchten Knoten in die Liste Kreis hinzu
+				//Fuege die besuchten Knoten in die Liste Kreis hinzu
 				Kreis.add(besuchteKnoten.get(i));
 			}
 			//Retourniere die Liste
 			return Kreis;
 		}
 
-		//Suche für jeden Knoten weitere mögliche Knoten
+		//Suche für jeden Knoten weitere moegliche Knoten
 		for (Integer Knoten : sucheMoeglicheKnoten(besuchteKnoten)) {
 			//Kopiere die Liste besuchte Knoten in die Liste neuer Pfad
 			ArrayList<Integer> neuerPfad = (ArrayList<Integer>) besuchteKnoten.clone();
@@ -82,7 +82,7 @@ public class Zyklen {
 	{
 		//Erstelle neue Liste mit dem bisherigen Pfad
 		ArrayList<Integer> bisherigerPfad = new ArrayList<Integer>();
-		//Füge alle bisherig besuchten Knoten hinzu und retourniere die Liste
+		//Fuege alle bisherig besuchten Knoten hinzu und retourniere die Liste
 		for (int i = 0; i < besuchteKnoten.size() - 1; i++)
 		{
 			bisherigerPfad.add(besuchteKnoten.get(i));
@@ -92,11 +92,11 @@ public class Zyklen {
 
 	private ArrayList<Integer> sucheMoeglicheKnoten(ArrayList<Integer> besuchteKnoten)
 	{
-		//Übernimm den aktuellen Knoten des bisherigen Pfades
+		//Uebernimm den aktuellen Knoten des bisherigen Pfades
 		int aktuellerKnoten = aktuellerKnotenBisherigerPfad(besuchteKnoten);
 		//Erstelle eine Liste mit allen möglichen weiteren Knoten des Graphen
 		ArrayList<Integer> möglicheKnoten = this.sucheNaechsteKnoten(aktuellerKnoten);
-		//Lösche den aktuellen Knoten
+		//Loesche den Knoten von dem wir kommen aus der Liste
 		if (!g.isDirected()&&besuchteKnoten.size()>1){
 			int ausgangsknoten = besuchteKnoten.get(besuchteKnoten.size()-2);
 			möglicheKnoten.remove((Integer) ausgangsknoten);
@@ -112,7 +112,7 @@ public class Zyklen {
 
 	private ArrayList<Integer> sucheNaechsteKnoten(int aktuellerKnoten)
 	{
-		//Erstelle eine neue Liste für die nächsten Knoten
+		//Erstelle eine neue Liste für die naechsten Knoten
 		ArrayList<Integer> naechsteKnoten = new ArrayList<>();
 		//Für jede gewichtete Kante die vom aktuellen Knoten weg gehen
 		for (WeightedEdge Edge : g.getEdges(aktuellerKnoten)) {
@@ -121,7 +121,7 @@ public class Zyklen {
 			{
 				//Wenn die Kante nicht auf den aktuellen Knoten zeigt
 				if (Edge.to_vertex != aktuellerKnoten) {
-					//Füge den Knoten in die Liste der nächsten Knoten hinzu
+					//Fuege den Knoten in die Liste der naechsten Knoten hinzu
 					naechsteKnoten.add(Edge.to_vertex);
 				}
 			}
@@ -130,16 +130,16 @@ public class Zyklen {
 			{
 				//Wenn die Kante nicht auf den aktuellen Knoten zeigt
 				if (Edge.to_vertex != aktuellerKnoten)
-					//Füge den Knoten hinzu
+					//Fuege den Knoten hinzu
 					naechsteKnoten.add(Edge.to_vertex);
 
 					//Wenn die Kante nicht vom aktuellen Knoten kommt
 				else if (Edge.from_vertex != aktuellerKnoten)
-					//Füge den Knoten hinzu
+					//Fuege den Knoten hinzu
 					naechsteKnoten.add(Edge.from_vertex);
 			}
 		}
-		//Retourniere die Liste mit den nächsten möglichen Knoten
+		//Retourniere die Liste mit den naechsten moeglichen Knoten
 		return naechsteKnoten;
 	}
 }
