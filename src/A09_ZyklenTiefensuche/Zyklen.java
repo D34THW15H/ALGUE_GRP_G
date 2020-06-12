@@ -37,7 +37,6 @@ public class Zyklen {
 				//und retourniere die ArrayList kreis
 				return kreis;
 			}
-
 		}
 		//Wenn kein Kreis gefunden wurde retourniere null
 		return null;
@@ -65,7 +64,7 @@ public class Zyklen {
 		}
 
 		//Suche für jeden Knoten weitere mögliche Knoten
-		for (Integer Knoten : this.sucheMöglicheKnoten(besuchteKnoten)) {
+		for (Integer Knoten : this.sucheMoeglicheKnoten(besuchteKnoten)) {
 			//Kopiere die Liste besuchte Knoten in die Liste neuer Pfad
 			ArrayList<Integer> neuerPfad = (ArrayList<Integer>) besuchteKnoten.clone();
 			neuerPfad.add(Knoten);
@@ -91,12 +90,12 @@ public class Zyklen {
 		return bisherigerPfad;
 	}
 
-	private ArrayList<Integer> sucheMöglicheKnoten(ArrayList<Integer> besuchteKnoten)
+	private ArrayList<Integer> sucheMoeglicheKnoten(ArrayList<Integer> besuchteKnoten)
 	{
 		//Übernimm den aktuellen Knoten des bisherigen Pfades
 		int aktuellerKnoten = aktuellerKnotenBisherigerPfad(besuchteKnoten);
 		//Erstelle eine Liste mit allen möglichen weiteren Knoten des Graphen
-		ArrayList<Integer> möglicheKnoten = this.sucheNächsteKnoten(aktuellerKnoten);
+		ArrayList<Integer> möglicheKnoten = this.sucheNaechsteKnoten(aktuellerKnoten);
 		//Wenn der Graph nicht gerichtet ist und die besuchten Knoten größer als 1 sind
 		if (!g.isDirected() && besuchteKnoten.size() > 1)
 		{
@@ -125,10 +124,10 @@ public class Zyklen {
 		return besuchteKnoten.get(besuchteKnoten.size() - 1 - n);
 	}
 
-	private ArrayList<Integer> sucheNächsteKnoten(int aktuellerKnoten)
+	private ArrayList<Integer> sucheNaechsteKnoten(int aktuellerKnoten)
 	{
 		//Erstelle eine neue Liste für die nächsten Knoten
-		ArrayList<Integer> nächsteKnoten = new ArrayList<>();
+		ArrayList<Integer> naechsteKnoten = new ArrayList<>();
 		//Für jede gewichtete Kante die vom aktuellen Knoten weg gehen
 		for (WeightedEdge Edge : g.getEdges(aktuellerKnoten)) {
 			//Wenn der Graph gerichtet ist
@@ -137,7 +136,7 @@ public class Zyklen {
 				//Wenn die Kante nicht auf den aktuellen Knoten zeigt
 				if (Edge.to_vertex != aktuellerKnoten)
 					//Füge den Knoten in die Liste der nächsten Knoten hinzu
-					nächsteKnoten.add(Edge.to_vertex);
+					naechsteKnoten.add(Edge.to_vertex);
 			}
 			//Sonst
 			else
@@ -145,14 +144,14 @@ public class Zyklen {
 				//Wenn die Kante nicht auf den aktuellen Knoten zeigt
 				if (Edge.to_vertex != aktuellerKnoten)
 					//Füge den Knoten hinzu
-					nächsteKnoten.add(Edge.to_vertex);
+					naechsteKnoten.add(Edge.to_vertex);
 					//Wenn die Kante nicht vom aktuellen Knoten kommt
 				else if (Edge.from_vertex != aktuellerKnoten)
 					//Füge den Knoten hinzu
-					nächsteKnoten.add(Edge.from_vertex);
+					naechsteKnoten.add(Edge.from_vertex);
 			}
 		}
 		//Retourniere die Liste mit den nächsten möglichen Knoten
-		return nächsteKnoten;
+		return naechsteKnoten;
 	}
 }
