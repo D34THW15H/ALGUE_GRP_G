@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class PersonenSortTest {
 
-	protected PersonenSort ps;
+	protected PersonenSort ps = new MergeSort();
 	
 	protected Person[] personen;
 	
