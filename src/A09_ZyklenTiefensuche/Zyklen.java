@@ -70,10 +70,12 @@ public class Zyklen {
 			ArrayList<Integer> neuerPfad = (ArrayList<Integer>) besuchteKnoten.clone();
 			neuerPfad.add(Knoten);
 			//Erstelle eine neue Liste result und rufe damit rekursiv die Methode sucheEinenKreis auf
-			ArrayList<Integer> result = sucheEinenKreis(neuerPfad);
-			//Wenn die Liste result nicht null ist retourniere die Liste
-			if (result != null)
-				return result;
+			if (Knoten != null){
+				ArrayList<Integer> result = sucheEinenKreis(neuerPfad);
+				//Wenn die Liste result nicht null ist retourniere die Liste
+				if (result != null)
+					return result;
+			}
 		}
 		return null;
 	}
