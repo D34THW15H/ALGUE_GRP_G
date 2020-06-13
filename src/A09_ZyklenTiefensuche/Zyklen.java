@@ -69,8 +69,9 @@ public class Zyklen {
 			//Kopiere die Liste besuchte Knoten in die Liste neuer Pfad
 			ArrayList<Integer> neuerPfad = (ArrayList<Integer>) besuchteKnoten.clone();
 			neuerPfad.add(Knoten);
-			//Erstelle eine neue Liste result und rufe damit rekursiv die Methode sucheEinenKreis auf
+			//Wenn der aktuelle Knoten nicht null ist
 			if (Knoten != null){
+				//Erstelle eine neue Liste result und rufe damit rekursiv die Methode sucheEinenKreis auf
 				ArrayList<Integer> result = sucheEinenKreis(neuerPfad);
 				//Wenn die Liste result nicht null ist retourniere die Liste
 				if (result != null)
@@ -98,8 +99,9 @@ public class Zyklen {
 		int aktuellerKnoten = aktuellerKnotenBisherigerPfad(besuchteKnoten);
 		//Erstelle eine Liste mit allen möglichen weiteren Knoten des Graphen
 		ArrayList<Integer> möglicheKnoten = this.sucheNaechsteKnoten(aktuellerKnoten);
-		//Loesche den Knoten von dem wir kommen aus der Liste
+		//Wenn der Graph nicht gerichtet ist und die besuchten Knoten groeßer als 1 sind
 		if (!g.isDirected()&&besuchteKnoten.size()>1){
+			//Loesche den Knoten von dem wir kommen aus der Liste
 			int ausgangsknoten = besuchteKnoten.get(besuchteKnoten.size()-2);
 			möglicheKnoten.remove((Integer) ausgangsknoten);
 		}
