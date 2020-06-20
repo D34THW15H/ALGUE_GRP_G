@@ -31,7 +31,7 @@ public class ConnectedComponents {
 
 		for (WeightedEdge e : edges // Laufzeit E
 				) {
-			if(visited[e.to_vertex] == false){ //Wen der Knoten der dem Knoten noch nicht besucht hat, dann wird die Funktion nextVertrex rekursive aufgerufen.
+			if(visited[e.to_vertex] == false){ //Wen der Knoten der dem Knoten folgt noch nicht besucht wurde, dann wird die Funktion nextVertrex rekursive aufgerufen.
 				nextVertrex(e.to_vertex);
 			}
 
@@ -47,6 +47,7 @@ public class ConnectedComponents {
 			if (visited[j] == false){
 				findall = false;
 				notvisied = j; //Wurde ein Knoten noch nicht besucht dann wird false zurueck gegeben und notvisied auf diesen Knoten gesetzt
+				break;
 			}
 
 		}
