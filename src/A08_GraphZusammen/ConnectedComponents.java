@@ -17,22 +17,22 @@ public class ConnectedComponents {
 		int count = 0; //Zaehler mit allen verbundenen Knoten
 		graph = g;
 		while (!allvisited()){ //Schleife unterbrochen wenn alle Knoten besucht wurden. Laufzeit V
-			nextVertrex(notvisied); //Tiefensuche mit den letzten nicht besuchten Knoten
+			nextVertex(notvisied); //Tiefensuche mit den letzten nicht besuchten Knoten
 			count ++; //Erhöhung des Zahlers um eins.
 
 		}
 		return count; //Rueckgabe des Zahlers
 	}
 
-	private void nextVertrex(int v) {
+	private void nextVertex(int v) {
 
 		visited[v] = true; //setzt in Array das man den Knoten schon besucht hatte.
 		List<WeightedEdge> edges = graph.getEdges(v); //erstellt Liste von allen Kanten die der Knoten hat
 
 		for (WeightedEdge e : edges // Laufzeit E
 				) {
-			if(visited[e.to_vertex] == false){ //Wen der Knoten der dem Knoten folgt noch nicht besucht wurde, dann wird die Funktion nextVertrex rekursive aufgerufen.
-				nextVertrex(e.to_vertex);
+			if(!visited[e.to_vertex]){ //Wen der Knoten der dem Knoten folgt noch nicht besucht wurde, dann wird die Funktion nextVertrex rekursive aufgerufen.
+				nextVertex(e.to_vertex);
 			}
 
 		}
@@ -44,7 +44,7 @@ public class ConnectedComponents {
 		boolean findall = true;
 		for (int j = 0; j < visited.length; j++) //Sieht nach ob man alle Knoten besucht hatte Laufzeit V
 		{
-			if (visited[j] == false){
+			if (!visited[j]){
 				findall = false;
 				notvisied = j; //Wurde ein Knoten noch nicht besucht dann wird false zurueck gegeben und notvisied auf diesen Knoten gesetzt
 				break;
